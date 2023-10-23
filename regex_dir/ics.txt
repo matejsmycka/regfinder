@@ -1,0 +1,7 @@
+^.*secret\s*(\=|\:)+.*$
+^.*password\s*(\=|\:)+.*$
+^.*dbname\s*(\=|\:)+.*$
+^.*pass\s*(\=|\:)+.*$
+https?:\/\/.*:.*@gitlab.ics.muni.cz
+curl --header "PRIVATE-TOKEN:.*"
+\<(password|secret|user)\>.*\</(password|secret|user)\>

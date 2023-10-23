@@ -1,0 +1,45 @@
+AIza[0-9A-Za-z-_]{35}
+[1-9][ 0-9]+-[0-9a-zA-Z]{40}
+ya29.[0-9A-Za-z-_]+
+^ghp_[a-zA-Z0-9]{36}$
+^github_pat_[a-zA-Z0-9]{22}_[a-zA-Z0-9]{59}$
+^gho_[a-zA-Z0-9]{36}$
+^ghu_[a-zA-Z0-9]{36}$
+^ghs_[a-zA-Z0-9]{36}$
+^ghr_[a-zA-Z0-9]{36}$
+sk_live_[0-9a-zA-Z]{24}
+AKIA[0-9A-Z]{16}
+[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
+[A-Za-z0-9_]{21}--[A-Za-z0-9_]{8}
+[\\s][a-zA-Z0-9]{40}[\\s]
+amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+EAACEdEose0cBA[0-9A-Za-z]+
+[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].*['|\"][0-9a-f]{32}['|\"]
+[a|A][p|P][i|I][_]?[k|K][e|E][y|Y].*['|\"][0-9a-zA-Z]{32,45}['|\"]
+[s|S][e|E][c|C][r|R][e|E][t|T].*['|\"][0-9a-zA-Z]{32,45}['|\"]
+[g|G][i|I][t|T][h|H][u|U][b|B].*['|\"][0-9a-zA-Z]{35,40}['|\"]
+glpat-[0-9a-zA-Z\\-_]{20}
+(_|-?)([t|T][o|O][k|K][e|E][n|N])(:|=| )(.{0,3})(\\S{20})(.?)(\\n|\\r|\\n\\r|$)
+glptt-[0-9a-f]{40}
+GR1348941[0-9a-zA-Z\\-_]{20}
+\"type\": \"service_account\"
+AIza[0-9A-Za-z\\-_]{35}
+[0-9]+-[0-9A-Za-z_]{32}\\.apps\\.googleusercontent\\.com
+ya29\\.[0-9A-Za-z\\-_]+
+[0-9]+-[0-9A-Za-z_]{32}\\.apps\\.googleusercontent\\.com
+[h|H][e|E][r|R][o|O][k|K][u|U].*[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}
+[0-9a-f]{32}-us[0-9]{1,2}
+key-[0-9a-zA-Z]{32}
+[a-zA-Z]{3,10}://[^/\\s:@]{3,20}:[^/\\s:@]{3,20}@.{1,100}[\"'\\s]
+access_token\\$production\\$[0-9a-z]{16}\\$[0-9a-f]{32}
+sk_live_[0-9a-z]{32}
+(-*)BEGIN [\\s\\S]{2,} PRIVATE KEY(-*)
+SG\\.[a-zA-Z0-9]{22}\\.[a-zA-Z0-9]{43}
+xox[baprs]-([0-9a-zA-Z]{10,48})?
+https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8}/[a-zA-Z0-9_]{24}
+sq0atp-[0-9A-Za-z\\-_]{22}
+sq0csp-[0-9A-Za-z\\-_]{43}
+rk_live_[0-9a-zA-Z]{24}
+SK[0-9a-fA-F]{32}
+[t|T][w|W][i|I][t|T][t|T][e|E][r|R].*[1-9][0-9]+-[0-9a-zA-Z]{40}
+[t|T][w|W][i|I][t|T][t|T][e|E][r|R].*['|\"][0-9a-zA-Z]{35,44}['|\"]

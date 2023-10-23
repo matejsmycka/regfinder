@@ -1,0 +1,2 @@
+https?:\/\/.*:.*@gitlab.ics.muni.cz
+curl --header "PRIVATE-TOKEN:.*" 
