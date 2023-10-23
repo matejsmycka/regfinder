@@ -19,7 +19,7 @@ To build the binary, run `make` in the root directory of the project, output dir
 ## Example
 
 ```bash
-$ ./regfinder.elf -d /your_app -f regex_dir/ics.txt
+$ ./regfinder.elf -d your_app/ -f regex_dir/general.txt
 
 ```
 
@@ -30,5 +30,5 @@ Regex for each use-case are included in `regex_dir` directory. You can use them 
 ## Dev
 
 ```bash
-make run -d SCCM/ -f regex_dir/ics.txt"
+make run -d your_app/ -f regex_dir/general.txt"
 ```
