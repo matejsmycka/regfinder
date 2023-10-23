@@ -1,4 +1,4 @@
-BINARY-NAME=reg-detector
+BINARY-NAME=regfinder
 WIN-BUILD= GOARCH=amd64 GOOS=windows
 LINUX-BUILD= GOARCH=amd64 GOOS=linux
 FILE=detector/main.go
