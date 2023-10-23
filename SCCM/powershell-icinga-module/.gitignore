@@ -1,0 +1,5 @@
+.vs
+.vscode
+*.psm1
+vault-r.json
+

@@ -1,0 +1,1 @@
+powershell.exe -executionpolicy bypass -file %~dp0Scripts\runme3.ps1

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<stateResolver>
+    <defaultOutput priority="99" state="OK" description="Duha Processor seems to work correctly"/>
+
+    <extractor name="default">
+        <getAttribute path="DuhaProcessor.LastEventTime" key="LastEventTime" type="DateTime" />
+    </extractor>    
+
+    <interval axisName="LastEventTime" to="345600" intervalName="LastEventOK" />
+    <interval axisName="LastEventTime" from="345600" intervalName="LastEventWarning" />
+
+    <multiSwitch name="LastEventTime" choice="LastEventTime">
+        <switchNode case="LastEventWarning">
+            <result key="State" value="Warning" />
+            <result key="Priority" value="20" />
+            <result key="Description" value="Processor have not processed a message for a long time" />
+        </switchNode>
+    </multiSwitch>
+</stateResolver>

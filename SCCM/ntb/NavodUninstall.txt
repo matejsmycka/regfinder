@@ -1,0 +1,11 @@
+Odinstalace NTB z CS, spustit v PowerShell admin konzoli.
+1. Odebrat z domény, provede se restart
+	Remove-Computer -UnjoinDomaincredential %ucet_s_opravnenim_k_odebrani% -PassThru -Verbose -Restart -Force
+2. Odinstalovat SCCM klienta
+	C:\Windows\ccmsetup\ccmsetup.exe /uninstall
+3. Odebrat certifikát
+	Get-ChildItem cert:\localmachine\my | where-object {$_.subject -match 'staff.ucn.muni.cz'} | Remove-Item -Force
+4. Odebrat VPN profil
+	Get-VpnConnection -AllUserConnection | Where-Object {$_.serveraddress -match 'vpn.ucn.muni.cz'} | Remove-VpnConnection -Force
+
+%ucet_s_opravnenim_k_odebrani% je napriklad staff\addtodomstaff

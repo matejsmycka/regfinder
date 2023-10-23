@@ -1,0 +1,97 @@
+<ApplicationDef>
+	<Application>
+		<Name>Git</Name>
+		<Description>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. </Description>
+		<Publisher></Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://git-scm.com/doc</UserDocumentation>
+		<Icon>git.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript>
+			try {
+			[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$URL = (wget https://git-scm.com/download/win | select -ExpandProperty Links | where -Property OuterText -like "*64-bit*Git*Windows*Setup*")[0].href
+} catch {
+				$ErrorMessage = $_.Exception.Message
+				$FullyQualified = $_.FullyQualifiedErrorID
+				Add-LogContent "[PrefetchScript] Git: Error while downloading."
+				Add-LogContent "[PrefetchScript] ERROR: $ErrorMessage"
+				Add-LogContent "[PrefetchScript] ERROR: $FullyQualified"
+				Add-LogContent "[PrefetchScript] ERROR: $($_.CategoryInfo.Category): $($_.CategoryInfo.Reason)"
+}
+</PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>git.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck>
+				[regex]$r = "Git-(.*)-64-bit.exe"
+				$Version = $r.Matches($URL).Groups[1].Value			
+			</DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>Git Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>cmd /c git.exe /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /LOADINF="config"</InstallProgram>
+			<InstallationMSI></InstallationMSI>
+			<UninstallCmd>cmd /c unins000.exe /VERYSILENT /NORESTART /NOCANCEL</UninstallCmd>
+			<UninstallationStartIn>%programfiles%\Git\</UninstallationStartIn>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>60</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>RegistryKeyValue</DetectionClauseType>
+					<Hive>LocalMachine</Hive>
+					<KeyName>SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Git_is1</KeyName>
+					<ValueName>DisplayVersion</ValueName>
+					<PropertyType>String</PropertyType>
+					<ExpectedValue>$Version</ExpectedValue>
+					<Value>true</Value>
+					<ExpressionOperator>Contains</ExpressionOperator>
+					<Is64Bit>true</Is64Bit>
+				</DetectionClause>
+            </CustomDetectionMethods>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Git - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Git - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Git - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

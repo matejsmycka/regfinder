@@ -1,0 +1,32 @@
+{
+    "uvt-server.munics.cz":{
+        "display_name": "uvt-server",
+        "address":"4.2.4.2",
+        "groups":["group1", "group2"],
+        "check_command":"hostalive",
+        "vars":{
+            "note":"This is my super server!",
+            "service_sets": ["default"],
+            "services": [],
+            "notification_sets": ["default-server"],
+            "notifications":[],
+            "dohled":"Z2"
+        },
+        "check_interval":90
+    },
+    "uvt-cloud.munics.cz":{
+        "display_name": "moj-cloud",
+        "address":"4.3.4.42",
+        "groups":["linux-servers"],
+        "check_command":"hostalive",
+        "vars":{
+            "service_sets": [],
+            "services": ["iscloudup"],
+            "notification_sets": [],
+            "notifications":["wake-up-only-honza"],
+            "state":"absent",
+            "dohled":"Z1"
+        },
+        "check_interval":60
+    }
+}

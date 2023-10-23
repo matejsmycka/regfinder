@@ -1,0 +1,32 @@
+﻿<ProjectState>
+  <Version>1.0</Version>
+  <FileID>c35e3be6-bc46-4c40-ab97-8cd34085ce99</FileID>
+  <OpenFolders />
+  <OpenFiles>
+    <File>Globals.ps1</File>
+    <File>MainForm.psf</File>
+    <File>gpudpate.psf</File>
+    <File>profil.psf</File>
+    <File>Irkala_CPS.psf</File>
+    <File>pridat_lokalitu.psf</File>
+    <File>editLokalita.psf</File>
+    <File>scheduler.psf</File>
+    <File>editRepeatTask.psf</File>
+    <File>safeq.psf</File>
+    <File>log.psf</File>
+    <File>pridat_uzivatela.psf</File>
+    <File>edituser.psf</File>
+    <File>Startup.pss</File>
+    <File>restart.psf</File>
+    <File>vypinanie.psf</File>
+    <File>pridat_oncescheduler.psf</File>
+    <File>pridat_repeatScheduler.psf</File>
+    <File>editOnceTask.psf</File>
+    <File>about.psf</File>
+    <File>dhcp.psf</File>
+    <File>lokality.psf</File>
+    <File>budenie.psf</File>
+    <File>pristupy.psf</File>
+    <File>csirt.psf</File>
+  </OpenFiles>
+</ProjectState>

@@ -30,5 +30,5 @@ Regex for each use-case are included in `regex_dir` directory. You can use them 
 ## Dev
 
 ```bash
-make run ARGS="-d SCCM/ -f regex_dir/ics.txt"
+make run -d SCCM/ -f regex_dir/ics.txt"
 ```

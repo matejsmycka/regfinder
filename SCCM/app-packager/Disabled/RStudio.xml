@@ -1,0 +1,107 @@
+<ApplicationDef>
+	<Application>
+		<Name>R Studio - ICS</Name>
+		<Description>RStudio provides popular open source and enterprise-ready professional software for the R statistical computing environment.</Description>
+		<Publisher></Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://www.rstudio.com/</UserDocumentation>
+		<Icon>rstudio.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript>
+			try {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $LastVersion = Invoke-WebRequest https://www.rstudio.com/products/rstudio/download/ -UseBasicParsing | Select-object -ExpandProperty Links | Where-object {$_.href -like "*windows*.exe"}
+    $URL = $LastVersion.href[0]
+    [regex]$r = ".*RStudio-(.*).exe"
+    $Version = $r.Matches($URL).Groups[1].Value	
+} catch {
+				$ErrorMessage = $_.Exception.Message
+				$FullyQualified = $_.FullyQualifiedErrorID
+				Add-LogContent "[PrefetchScript] Python: Error while downloading."
+				Add-LogContent "[PrefetchScript] ERROR: $ErrorMessage"
+				Add-LogContent "[PrefetchScript] ERROR: $FullyQualified"
+				Add-LogContent "[PrefetchScript] ERROR: $($_.CategoryInfo.Category): $($_.CategoryInfo.Reason)"
+}
+</PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>rstudio.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck></DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>RStudio Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>cmd /c rstudio.exe /S &amp;&amp; ping -n 10 127.0.0.1 >NUL &amp;&amp; EXIT /B 0</InstallProgram>
+			<InstallationMSI></InstallationMSI>
+			<UninstallCmd>cmd /c Uninstall.exe /S &amp;&amp; ping -n 10 127.0.0.1 >NUL &amp;&amp; EXIT /B 0</UninstallCmd>
+			<UninstallationStartIn>%ProgramFiles%\RStudio\</UninstallationStartIn>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>60</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>RegistryKeyValue</DetectionClauseType>
+					<Hive>LocalMachine</Hive>
+					<KeyName>SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\RStudio</KeyName>
+					<ValueName>DisplayVersion</ValueName>
+					<PropertyType>String</PropertyType>
+					<ExpectedValue>$Version</ExpectedValue>
+					<Value>true</Value>
+					<ExpressionOperator>IsEquals</ExpressionOperator>
+					<Is64Bit>true</Is64Bit>
+				</DetectionClause>
+            </CustomDetectionMethods>
+			<Dependencies>
+				<!-- Add Entries to the "Dependency Group" to create a new Dependency Group-->
+				<DependencyGroup GroupName="Rstudio Dependency Group">
+					<!-- Each "DependencyGroup" Can have multiple applications defined-->
+					<DependencyGroupApp AppName="R Project*">
+						<DependencyDepType>R Project Silent Install</DependencyDepType>
+						<DependencyAutoInstall>True</DependencyAutoInstall>
+					</DependencyGroupApp>
+				</DependencyGroup>
+			</Dependencies>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - R Studio - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - R Studio - Available</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - R Studio - Required</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

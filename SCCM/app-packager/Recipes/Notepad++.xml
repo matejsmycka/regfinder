@@ -1,0 +1,88 @@
+<ApplicationDef>
+	<Application>
+		<Name>Notepad++</Name>
+		<Description>Notepad++ is a free source code editor and Notepad replacement that supports several languages. Running in the MS Windows environment, its use is governed by GPL License.</Description>
+		<Publisher>Don Ho</Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://notepad-plus-plus.org/</UserDocumentation>
+		<Icon>notepad.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript>$LinkPath = ((Invoke-WebRequest https://notepad-plus-plus.org/) | Select-Object -ExpandProperty Links | Where-Object -Property OuterText -Like "*Current Version*").href
+			$URL = ((Invoke-WebRequest "https://notepad-plus-plus.org$LinkPath") | Select-Object -ExpandProperty Links | Where-Object {$_.href -Like "*x64.exe" -and $_.innerText -Like "Installer"}).href
+			</PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>NotePadppInstaller.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck>$Version = (Get-item $TempDir\$DownloadFileName).VersionInfo.FileVersion</DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>NotePad++ Silent Installer</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<InstallationBehaviorName>notepad++.exe</InstallationBehaviorName>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>NotePadppInstaller.exe /noUpdater /S</InstallProgram>
+			<UninstallCmd>cmd /c "%ProgramFiles%\Notepad++\uninstall.exe" /S &amp; ping -n 15 127.0.0.1 > %null &amp; EXIT /B 0</UninstallCmd>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>60</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>File</DetectionClauseType>
+					<Name>notepad++.exe</Name>
+					<Path>%ProgramFiles%\Notepad++\</Path>
+					<PropertyType>Version</PropertyType>
+					<ExpectedValue>$Version</ExpectedValue>
+					<ExpressionOperator>isEquals</ExpressionOperator>
+					<Value>True</Value>
+					<Is64Bit>true</Is64Bit>
+				</DetectionClause>
+			</CustomDetectionMethods>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Notepad++ Available - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Notepad++ Required - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Notepad++ - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Notepad++ - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

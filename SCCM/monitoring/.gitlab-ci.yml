@@ -1,0 +1,17 @@
+config_deploy:
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh git
+    - mkdir -p ~/.ssh
+    - echo "$GITMON_K2" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - echo "Host ucn-server5.ucn.muni.cz" > ~/.ssh/config && echo " StrictHostKeyChecking no" >> ~/.ssh/config
+  script:
+    - scp -r * $GITMON_U@ucn-server5.ucn.muni.cz:"temp-monitoring"
+    - ssh $GITMON_U@ucn-server5.ucn.muni.cz "sl temp-monitoring; .\compute-hash.ps1"
+    - ssh $GITMON_U@ucn-server5.ucn.muni.cz "temp-monitoring\run.ps1 $GITMON_WUSERNAME $GITMON_P"
+    - ssh $GITMON_U@ucn-server5.ucn.muni.cz "rm -recurse -force -path temp-monitoring\*"
+    - exit 0
+  only:
+  - master

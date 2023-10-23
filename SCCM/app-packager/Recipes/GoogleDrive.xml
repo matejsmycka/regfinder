@@ -1,0 +1,79 @@
+<ApplicationDef>
+	<Application>
+		<Name>Google Drive</Name>
+		<Description>Store, share, and collaborate on files and folders from any mobile device, tablet, or computer</Description>
+		<Publisher>Google</Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://www.google.com/intl/cs_CZ/drive/</UserDocumentation>
+		<Icon>googledrive.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript></PrefetchScript>
+			<URL>https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe</URL>
+			<DownloadFileName>GoogleDriveSetup.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck>$Version = ((Get-item $TempDir\$DownloadFileName).VersionInfo.FileVersion).TrimStart().TrimEnd()</DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>Google Drive Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<InstallationBehaviorName>GoogleDriveSetup.exe</InstallationBehaviorName>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>GoogleDriveSetup.exe --silent --desktop_shortcut=true</InstallProgram>
+			<UninstallCmd>"%PROGRAMFILES%\Google\Drive File Stream\REPLACEMEWITHTHEAPPVERSION\uninstall.exe" --silent --force_stop</UninstallCmd>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>10</EstRuntimeMins>
+			<MaxRuntimeMins>40</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>RegistryKeyValue</DetectionClauseType>
+					<Hive>LocalMachine</Hive>
+					<KeyName>SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{6BBAE539-2232-434A-A4E5-9A33560C6283}</KeyName>
+					<ValueName>DisplayVersion</ValueName>
+					<PropertyType>Version</PropertyType>
+					<ExpressionOperator>IsEquals</ExpressionOperator>
+					<ExpectedValue>$Version</ExpectedValue>
+					<Value>True</Value>
+				</DetectionClause>
+			</CustomDetectionMethods>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Google Drive - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Google Drive - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Google Drive - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

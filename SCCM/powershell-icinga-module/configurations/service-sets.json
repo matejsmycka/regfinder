@@ -1,0 +1,4 @@
+{
+    "default":["cpuload", "memuse"],
+    "default-nonotif":["cpuload-nonotif", "memuse-nonotif"]
+}

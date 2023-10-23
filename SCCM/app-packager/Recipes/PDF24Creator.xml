@@ -1,0 +1,75 @@
+<ApplicationDef>
+	<Application>
+		<Name>PDF24 Creator</Name>
+		<Description>The free PDF24 PDF Creator is a program to create PDF files from almost any application. The PDF software is a free PDF creator to create PDF files from any type of document. </Description>
+		<Publisher>geek software GmbH</Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://en.pdf24.org/</UserDocumentation>
+		<Icon>pdf24creator.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<URL>https://cs.pdf24.org/products/pdf-creator/download/?tou=msi</URL>
+			<DownloadFileName>pdf24creator.msi</DownloadFileName>
+			<DownloadVersionCheck>
+			$url = Get-RedirectedUrl https://cs.pdf24.org/products/pdf-creator/download/?tou=msi
+			[regex]$r = "-(\d.+)+\.msi"
+			$Version = $r.Matches($url).Groups[1].Value
+			$FullVersion = $Version
+			</DownloadVersionCheck>
+			<Version></Version>
+			<FullVersion></FullVersion>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>PDF24 Creator Silent Install x64 CS</DeploymentTypeName>
+			<InstallationType>MSI</InstallationType>
+			<InstallationBehaviorName>pdf24.exe</InstallationBehaviorName>
+			<Comments>Silent Installer for Pdf24 Creator</Comments>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallationMSI>pdf24creator.msi</InstallationMSI>
+			<UninstallCmd></UninstallCmd>
+			<Force32bit>False</Force32bit>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<ReqUserInteraction>False</ReqUserInteraction>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>30</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>MSI</DetectionMethodType>
+			<Supersedence>true</Supersedence>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - PDF24 Creator - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - PDF24 Creator - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - PDF24 Creator - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

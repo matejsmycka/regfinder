@@ -1,0 +1,50 @@
+{
+    "cpuload" : {
+        "display_name": "CPU Load",
+        "check_command": "nrpe",
+        "vars":{
+            "nrpe_command":"check_ntr_cpuload",
+            "nrpe_port":"5669",
+            "notifications": ["winadm-service-down-onetime"]
+        },
+        "check_interval": 60,
+        "retry_interval": 15,
+        "groups": ["service-group1"]        
+    },
+    "memuse" : {
+        "display_name": "Memory Utilization",
+        "check_command": "nrpe",
+        "vars":{
+            "nrpe_command":"check_ntr_memuse",
+            "nrpe_port":"5669",
+            "notifications": ["winadm-service-down-onetime"]
+        },
+        "check_interval": 60,
+        "retry_interval": 15,
+        "groups": []        
+    },
+    "cpuload-nonotif" : {
+        "display_name": "CPU Load",
+        "check_command": "nrpe",
+        "vars":{
+            "nrpe_command":"check_ntr_cpuload",
+            "nrpe_port":"5669",
+            "note":"Without notifications"
+        },
+        "check_interval": 60,
+        "retry_interval": 15,
+        "groups": []        
+    },
+    "memuse-nonotif" : {
+        "display_name": "Memory Utilization",
+        "check_command": "nrpe",
+        "vars":{
+            "nrpe_command":"check_ntr_memuse",
+            "nrpe_port":"5669",
+            "note":"Without notifications"
+        },
+        "check_interval": 60,
+        "retry_interval": 15,
+        "groups": ["service-group2"]        
+    }
+}

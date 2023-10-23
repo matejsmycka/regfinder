@@ -1,0 +1,4 @@
+ALTER TABLE `acl` MODIFY COLUMN `funkcia` enum('budenie','vypinanie','restart','log','rezim','scheduler','pristupy','oss','irkala_cps','safeq','dhcp','profil','csirt');
+ALTER TABLE `logs` MODIFY COLUMN `process` enum('budenie','vypinanie','restart','log','rezim','scheduler','pristupy','oss','irkala_cps','safeq','dhcp','profil','csirt');
+ALTER TABLE `lokality` MODIFY COLUMN `funkcia` enum('budenie','vypinanie','restart','log','rezim','scheduler','pristupy','oss','irkala_cps','safeq','dhcp','profil','csirt');
+ALTER TABLE `scheduler` MODIFY COLUMN `funkcia` enum('budenie','vypinanie','restart','log','rezim','scheduler','pristupy','oss','irkala_cps','safeq','dhcp','profil','csirt');

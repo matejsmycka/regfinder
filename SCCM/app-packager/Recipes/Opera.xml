@@ -1,0 +1,97 @@
+<ApplicationDef>
+	<Application>
+		<Name>Opera</Name>
+		<Description>Opera is a web browser for Windows developed by Opera Software.</Description>
+		<Publisher>Opera Software</Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://www.opera.com/</UserDocumentation>
+		<Icon>opera.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+            <PrefetchScript>
+				$LastVersions = ((Invoke-WebRequest "https://download1.operacdn.com/pub/opera/desktop/" | Select-Object -ExpandProperty Links | where -Property OuterText -Like "*/").href.trim("/") | select -last 10 | %{[System.Version]$_} | sort -Descending)
+				foreach ($Version in $LastVersions){
+					$Version = $Version.ToString()
+					try {
+						$ExecutableFile = Invoke-webrequest -Uri "https://download1.operacdn.com/pub/opera/desktop/$Version/win/" | Select-Object -ExpandProperty Links | Where -Property OuterText -Like "Opera_$($Version)_Setup_x64.exe"
+						$URL = "https://download1.operacdn.com/pub/opera/desktop/$Version/win/Opera_$Version`_Setup.exe"
+						break
+					} catch {
+						Add-LogContent "[Downloading: Opera] Wrong version: $Version, skipping." -Level "Error"
+						continue
+					}
+				}
+            </PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>opera.exe</DownloadFileName>
+			<DownloadVersionCheck>$Version</DownloadVersionCheck>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>Opera Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<InstallationBehaviorName>opera.exe</InstallationBehaviorName>
+			<Comments>Silent Installer for opera</Comments>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>cmd /c opera.exe /silent /installfolder="C:\Program Files\Opera" /launchopera=no /desktopshortcut=no /quicklaunchshortcut=no /pintotaskbar=no /setdefaultbrowser=no /allusers=yes &amp;&amp; ping 127.0.0.1 -n 15 >NUL &amp;&amp; ren "%programfiles%\Opera\REPLACEMEWITHTHEAPPVERSION\opera_autoupdate.exe" "opera_autoupdate-DISABLED.exe" &amp;&amp; EXIT /B 0</InstallProgram>
+			<UninstallCmd>cmd /c launcher.exe /uninstall /silent &amp;&amp; ping -n 15 127.0.0.1 >NUL &amp;&amp; rd /S /Q "%programfiles%\Opera" &amp;&amp; EXIT /B 0</UninstallCmd>
+			<UninstallationStartIn>%programfiles%\Opera\</UninstallationStartIn>
+			<Force32bit>False</Force32bit>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<ReqUserInteraction>False</ReqUserInteraction>
+			<EstRuntimeMins>5</EstRuntimeMins>
+			<MaxRuntimeMins>30</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>File</DetectionClauseType>
+					<Name>launcher.exe</Name>
+					<Path>%ProgramFiles%\Opera</Path>
+					<PropertyType>Version</PropertyType>
+					<ExpectedValue>$Version</ExpectedValue>
+					<ExpressionOperator>GreaterEquals</ExpressionOperator>
+					<Value>True</Value>
+				</DetectionClause>
+			</CustomDetectionMethods>
+			<Supersedence>true</Supersedence>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Opera - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Opera - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Opera - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

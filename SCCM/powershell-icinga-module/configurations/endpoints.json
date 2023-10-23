@@ -1,0 +1,4 @@
+{
+    "monitor":"https://monitor.ics.muni.cz:5665/v1/",
+    "demo":"https://icinga-demo.ics.muni.cz:5665/v1/"
+}

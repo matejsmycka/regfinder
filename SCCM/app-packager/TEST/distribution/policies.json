@@ -1,0 +1,14 @@
+{
+    "policies": {
+      "BlockAboutSupport": true,
+      "DisableAppUpdate": true,
+      "DontCheckDefaultBrowser": true,
+      "Homepage": {
+        "URL": "https://is.muni.cz/",
+        "Locked": true,
+        "Additional": ["https://muni.cz/"]
+      },
+      "OverrideFirstRunPage": "",
+      "OverridePostUpdatePage": ""
+    }
+}

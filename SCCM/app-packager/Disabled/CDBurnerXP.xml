@@ -1,0 +1,86 @@
+<ApplicationDef>
+	<Application>
+		<Name>CDBurnerXP</Name>
+		<Description>CDBurnerXP is a free application to burn CDs and DVDs, including Blu-Ray and HD-DVDs.</Description>
+		<Publisher>Canneverbe Limited</Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://cdburnerxp.se/help/</UserDocumentation>
+		<Icon>cdburner.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript>
+			try {
+			[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$CDB = (Invoke-WebRequest "https://download.cdburnerxp.se/?C=M;O=D" | Select-Object -ExpandProperty Links | where -Property OuterText -Like "*cdbxp_setup_*_x64.exe")[0].href
+$URL = "https://download.cdburnerxp.se/$CDB"
+} catch {
+				$ErrorMessage = $_.Exception.Message
+				$FullyQualified = $_.FullyQualifiedErrorID
+				Add-LogContent "[Download] Error while downloading."
+				Add-LogContent "[Download] ERROR: $ErrorMessage"
+				Add-LogContent "[Download] ERROR: $FullyQualified"
+				Add-LogContent "[Download] ERROR: $($_.CategoryInfo.Category): $($_.CategoryInfo.Reason)"
+}
+</PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>CDBurnerXP.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck>
+				[regex]$r = "[^_]+[^_x64.exe]"
+				$Version = $r.Matches($CDB)[2].Value			
+			</DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>CDBurnerXP Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<InstallationBehaviorName>cdbxpp.exe</InstallationBehaviorName>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram></InstallProgram>
+			<InstallationMSI>cmd /c CDBurnerXP.exe /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /MERGETASKS="!desktopicon" &amp;&amp; DEL /Q "%public%\CDBurnerXP.lnk"</InstallationMSI>
+			<UninstallCmd>cmd /c unins000.exe /VERYSILENT /NORESTART /NOCANCEL</UninstallCmd>
+			<UninstallationStartIn>%programfiles%\CDBurnerXP\</UninstallationStartIn>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>60</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>MSI</DetectionMethodType>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - CDBurnerXP - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - CDBurnerXP - Available</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - CDBurnerXP - Required</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

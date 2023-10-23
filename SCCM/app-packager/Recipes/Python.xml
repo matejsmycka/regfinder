@@ -1,0 +1,92 @@
+<ApplicationDef>
+	<Application>
+		<Name>Python</Name>
+		<Description>Python is an interpreted, high-level, general-purpose programming language.</Description>
+		<Publisher></Publisher>
+		<AutoInstall>True</AutoInstall>
+		<UserDocumentation>https://docs.python.org/3/</UserDocumentation>
+		<Icon>python.png</Icon>
+	</Application>
+	<Downloads>
+		<Download DeploymentType="DeploymentType1">
+			<PrefetchScript>
+			try {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $LastVersion = (Invoke-WebRequest -Uri "https://www.python.org/downloads/windows/" | Select -ExpandProperty Links | where -Property innerText -like "Latest Python 3 Release*").innerText
+    [regex]$r = "Latest Python 3 Release - (.*) (.*)"
+    $Version = $r.Matches($LastVersion).Groups[2].Value	
+    $URL = "https://www.python.org/ftp/python/$Version/python-$Version`-amd64.exe"
+} catch {
+				$ErrorMessage = $_.Exception.Message
+				$FullyQualified = $_.FullyQualifiedErrorID
+				Add-LogContent "[PrefetchScript] Python: Error while downloading."
+				Add-LogContent "[PrefetchScript] ERROR: $ErrorMessage"
+				Add-LogContent "[PrefetchScript] ERROR: $FullyQualified"
+				Add-LogContent "[PrefetchScript] ERROR: $($_.CategoryInfo.Category): $($_.CategoryInfo.Reason)"
+}
+</PrefetchScript>
+			<URL></URL>
+			<DownloadFileName>python.exe</DownloadFileName>
+			<Version></Version>
+			<FullVersion></FullVersion>
+			<DownloadVersionCheck></DownloadVersionCheck>
+			<ExtraCopyFunctions></ExtraCopyFunctions>
+		</Download>
+	</Downloads>
+	<DeploymentTypes>
+		<DeploymentType Name="DeploymentType1">
+			<DeploymentTypeName>Python Silent Install</DeploymentTypeName>
+			<InstallationType>Script</InstallationType>
+			<Language>English</Language>
+			<CacheContent>False</CacheContent>
+			<BranchCache>True</BranchCache>
+			<ContentFallback>True</ContentFallback>
+			<OnSlowNetwork>Download</OnSlowNetwork>
+			<InstallProgram>cmd /c python.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0 PrependPath=1 TargetDir="%ProgramFiles%\Python"</InstallProgram>
+			<InstallationMSI></InstallationMSI>
+			<UninstallCmd>cmd /c python.exe /uninstall /quiet</UninstallCmd>
+			<UninstallationStartIn></UninstallationStartIn>
+			<InstallationBehaviorType>InstallForSystem</InstallationBehaviorType>
+			<LogonReqType>WhetherOrNotUserLoggedOn</LogonReqType>
+			<UserInteractionMode>Hidden</UserInteractionMode>
+			<EstRuntimeMins>15</EstRuntimeMins>
+			<MaxRuntimeMins>60</MaxRuntimeMins>
+			<RebootBehavior>BasedOnExitCode</RebootBehavior>
+			<DetectionMethodType>Custom</DetectionMethodType>
+			<CustomDetectionMethods>
+				<DetectionClause>
+					<DetectionClauseType>File</DetectionClauseType>
+					<Name>python.exe</Name>
+					<Path>C:\Program Files\Python</Path>
+					<Existence>True</Existence>
+                </DetectionClause>
+            </CustomDetectionMethods>
+		</DeploymentType>
+	</DeploymentTypes>
+	<Distribution>
+		<DistributeContent>True</DistributeContent>
+	</Distribution>
+	<Deployments TestFirst="True">
+		<Deployment type="Test">
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Python - TEST</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Available</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Python - Available - CSS</DeploymentCollection>
+		</Deployment>
+		<Deployment>
+			<DeploySoftware>True</DeploySoftware>
+			<DeployAction>Install</DeployAction>
+			<DeployPurpose>Required</DeployPurpose>
+			<UserNotification>DisplaySoftwareCenterOnly</UserNotification>
+			<DeploymentCollection>WKS - SD - Python - Required - CSS</DeploymentCollection>
+		</Deployment>
+	</Deployments>
+</ApplicationDef>

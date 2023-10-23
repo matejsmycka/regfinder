@@ -1,0 +1,31 @@
+﻿<Project>
+  <Version>1</Version>
+  <FileID>c35e3be6-bc46-4c40-ab97-8cd34085ce99</FileID>
+  <ProjectType>0</ProjectType>
+  <Files>
+    <File ReferenceName="" Build="0">Startup.pss</File>
+    <File ReferenceName="Call-MainForm_psf" Build="0">MainForm.psf</File>
+    <File ReferenceName="Call-Global_ps1" Build="0" CommandExtension="True">Globals.ps1</File>
+    <File ReferenceName="Call-about_psf" Build="0">about.psf</File>
+    <File ReferenceName="Call-lokality_psf" Build="0">lokality.psf</File>
+    <File ReferenceName="Call-uzivatelia_psf" Build="0">uzivatelia.psf</File>
+    <File ReferenceName="Call-pridat_lokalitu_psf" Build="0">pridat_lokalitu.psf</File>
+    <File ReferenceName="Call-pridat_uzivatela_psf" Build="0">pridat_uzivatela.psf</File>
+    <File ReferenceName="Call-budenie_psf" Build="0">budenie.psf</File>
+    <File ReferenceName="Call-vypinanie_psf" Build="0">vypinanie.psf</File>
+    <File ReferenceName="Call-restart_psf" Build="0">restart.psf</File>
+    <File ReferenceName="Call-rezim_psf" Build="0">rezim.psf</File>
+    <File ReferenceName="Call-scheduler_psf" Build="0">scheduler.psf</File>
+    <File ReferenceName="Call-pridat_oncescheduler_psf" Build="0">pridat_oncescheduler.psf</File>
+    <File ReferenceName="Call-pridat_repeatScheduler_psf" Build="0">pridat_repeatScheduler.psf</File>
+    <File ReferenceName="Call-log_psf" Build="0">log.psf</File>
+    <File ReferenceName="Call-editLokalita_psf" Build="0">editLokalita.psf</File>
+    <File ReferenceName="Call-edituser_psf" Build="0">edituser.psf</File>
+    <File ReferenceName="Call-OSS_psf" Build="0">OSS.psf</File>
+    <File ReferenceName="Call-pristupy_psf" Build="0">pristupy.psf</File>
+    <File ReferenceName="Call-editRepeatTask_psf" Build="0">editRepeatTask.psf</File>
+    <File ReferenceName="Call-editOnceTask_psf" Build="0">editOnceTask.psf</File>
+    <File ReferenceName="Call-Irkala_CPS_psf" Build="0">Irkala_CPS.psf</File>
+    <File ReferenceName="Call-runningProcesses_psf" Build="0">runningProcesses.psf</File>
+  </Files>
+</Project>

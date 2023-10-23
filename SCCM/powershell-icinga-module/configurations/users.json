@@ -1,0 +1,11 @@
+{
+     "honza@institute":{
+        "display_name":"Jan Haluska",
+        "email":"honza@ics.domain",
+        "pager":"phone-number",
+        "groups": ["contact-group-name"],
+        "vars":{
+            "state": "absent"
+        }
+     }
+}
