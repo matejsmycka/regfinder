@@ -12,7 +12,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var COLOR = flag.Bool("no-color", true, "Disable color output")
+var NO_COLOR = flag.Bool("no-color", false, "Disable color output")
 
 func searchFilesWithRegex(directory, regexFile string) error {
 	// Read the list of regular expressions from the regex file.
@@ -84,7 +84,7 @@ func searchFileWithRegexes(filePath string, regexList []string) error {
 
 			matches := regex.FindAllStringIndex(line, -1)
 			if len(matches) > 0 {
-				if *COLOR {
+				if !*NO_COLOR {
 					fmt.Printf("File: %s, Line %d, Match: ", filePath, lineNum+1)
 					color.Red("%.100s", line)
 				} else {
