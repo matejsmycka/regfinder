@@ -1,1 +1,0 @@
-powershell.exe .\VPN_Profile_Device.ps1 -xmlFilePath .\VPN_Profile_Device_TEST.xml -ProfileName 'VPN-Test'

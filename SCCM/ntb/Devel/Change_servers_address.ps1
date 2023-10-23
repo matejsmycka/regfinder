@@ -1,1 +1,0 @@
-get-vpnconnection -Name "MU AlwaysOn VPN (Device tunnel)" | Set-VpnConnection -ServerList (New-VpnServerAddress -ServerAddress vpn2-ext.ucn.muni.cz -FriendlyName vpn2-ext.ucn.muni.cz) -ServerAddress vpn2-ext.ucn.muni.cz

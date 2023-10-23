@@ -1,1 +1,0 @@
-powershell.exe -noexit -executionpolicy bypass -file %~dp0Scripts\runme0.ps1

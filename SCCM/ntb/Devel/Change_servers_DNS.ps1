@@ -1,1 +1,0 @@
-Set-VpnConnectionTriggerDnsConfiguration -ConnectionName "MU AlwaysOn VPN (Device tunnel)" -DnsSuffix ".ucn.muni.cz" -DnsIPAddress "147.251.16.91","147.251.16.92" -PassThru -Force

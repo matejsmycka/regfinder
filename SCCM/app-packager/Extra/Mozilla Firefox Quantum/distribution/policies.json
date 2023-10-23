@@ -1,9 +1,0 @@
-{
-    "policies": {
-      "BlockAboutSupport": true,
-      "DisableAppUpdate": true,
-      "DontCheckDefaultBrowser": true,
-      "OverrideFirstRunPage": "",
-      "OverridePostUpdatePage": ""
-    }
-}

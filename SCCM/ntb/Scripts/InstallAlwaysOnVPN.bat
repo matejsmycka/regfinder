@@ -1,1 +1,0 @@
-%~dp0PSTools\PsExec.exe -accepteula -i -s C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe %~dp0\Config\VPN_Profile_Device.ps1 %~dp0Config\VPN_Profile_Device.xml 'MU AlwaysOn VPN (Device tunnel)'

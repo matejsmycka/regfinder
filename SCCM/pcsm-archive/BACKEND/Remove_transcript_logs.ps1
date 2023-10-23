@@ -1,1 +1,0 @@
-﻿get-childitem -path C:\pcsm_backend\transcriptLog | where{$_.CreationTime -lt (get-date).AddDays(-30)} | foreach{ write-host $_.FullName; Remove-Item -Force $_.FullName}
