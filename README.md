@@ -1,10 +1,10 @@
 # regfinder
 
-Fast simple regex matcher that should be used as simple manual checker for secrets in your file.
-Useful for secret detection in your codebase and very easy to extend existing regex patterns. 
+Fast, simple regex matcher that should be used as a simple manual checker for secrets in your project.
+It is useful for secret detection in your codebase and makes it very easy to extend existing regex patterns. 
 
-This tool might have a high false positive rate, which is dependant on the regexes you use. 
-RegFinder is not meant for automated pipeline, however it comes handy in situations where more manual is expected (e.g. Security code review, Pentest...).
+Depending on the regexes you use, this tool might have a high false positive rate. 
+RegFinder is not meant for automated pipelines. However, it comes in handy in situations where more manual is expected (e.g. Security code review, Pentest...).
 
 
 ## Usage
