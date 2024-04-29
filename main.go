@@ -33,8 +33,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	fileIter(directory, regexList)
-
+	findingCount, filesCrawled := fileIter(directory, regexList)
+	fmt.Printf("Files crawled: %d\n", filesCrawled)
+	fmt.Printf("Total matches: %d\n", findingCount)
 }
 
 func isText(path string, info os.FileInfo, err error) bool {
@@ -50,34 +51,44 @@ func isText(path string, info os.FileInfo, err error) bool {
 	return true
 }
 
-func fileIter(directory string, regexList []string) {
+func fileIter(directory string, regexList []string) (int, int) {
+	var mu sync.Mutex
+	fmt.Printf("Searching in directory: %s\n", directory)
+	findingCount := 0
+	filesCrawled := 0
 	textFiles := []string{}
 	_ = filepath.Walk(directory, func(path string, info os.FileInfo, err error) error {
 		if isText(path, info, err) {
 			textFiles = append(textFiles, path)
 		}
-		return err
+		return nil
 	})
 
 	var wg sync.WaitGroup
 
 	for _, filePath := range textFiles {
 		wg.Add(1)
-		go func() {
+		go func(fPath string) {
 			defer wg.Done()
-			err := searchFileWithRegexes(filePath, regexList)
+			filesCrawled++
+			count, err := searchFileWithRegexes(fPath, regexList)
 			if err != nil {
 				fmt.Printf("Error: %v\n", err)
 			}
-		}()
+			mu.Lock()
+			findingCount += count
+			mu.Unlock()
+		}(filePath)
 	}
 	wg.Wait()
+	return findingCount, filesCrawled
 }
 
-func searchFileWithRegexes(filePath string, regexList []string) error {
+func searchFileWithRegexes(filePath string, regexList []string) (int, error) {
 	fileContent, err := os.ReadFile(filePath)
+	findings := 0
 	if err != nil {
-		return err
+		return 0, err
 	}
 
 	lines := strings.Split(string(fileContent), "\n")
@@ -86,17 +97,19 @@ func searchFileWithRegexes(filePath string, regexList []string) error {
 		for _, regexPattern := range regexList {
 			regex, err := regexp.Compile(regexPattern)
 			if err != nil {
-				return err
+				return 0, err
 			}
 
 			matches := findRegexMatches(regex, line)
 			if len(matches) > 0 {
+				findings++
 				printMatches(filePath, lineNum, line, matches)
+
 			}
 		}
 	}
 
-	return nil
+	return findings, nil
 }
 
 func isWrongExtension(filePath string) bool {
