@@ -1,11 +1,20 @@
 # regfinder
 
 Fast, simple regex matcher that should be used as a simple manual checker for secrets in your project.
-It is useful for secret detection in your codebase and makes it very easy to extend existing regex patterns. 
+It is helpful for secret detection in your codebase and makes it very easy to extend existing regex patterns. 
 
-Depending on the regexes you use, this tool might have a high false positive rate. 
-RegFinder is not meant for automated pipelines. However, it comes in handy in situations where more manual is expected (e.g. Security code review, Pentest...).
+This tool might have a high false positive rate depending on your regexes. 
+RegFinder is not meant for automated pipelines. However, it comes in handy when more manual work is required (e.g., security code review, Pentest, etc.).
 
+## Setup 
+
+Copy the executable from the `/build` folder to `/usr/local/bin`.
+
+```bash
+wget https://github.com/matejsmycka/regfinder/raw/main/build/regfinder.elf
+chmod +x ./regfinder.elf
+sudo mv ./regfinder.elf /usr/local/bin/regfinder
+```
 
 ## Usage
 
