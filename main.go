@@ -35,6 +35,7 @@ func main() {
 
 	findingCount, filesCrawled := fileIter(directory, regexList)
 	fmt.Printf("Files crawled: %d\n", filesCrawled)
+	fmt.Printf("Number of regexes: %d\n", len(regexList))
 	fmt.Printf("Total matches: %d\n", findingCount)
 }
 
