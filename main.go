@@ -23,7 +23,7 @@ func main() {
 	flag.Parse()
 
 	if directory == "" || regexFile == "" {
-		fmt.Println("Usage: ./program -d <directory> -f <regex_file>")
+		flag.Usage()
 		os.Exit(1)
 	}
 
@@ -46,6 +46,7 @@ func isText(path string, info os.FileInfo, err error) bool {
 		return false
 	}
 	if isWrongExtension(path) {
+		fmt.Printf("Skipping file: %s\n", path)
 		return false
 	}
 	return true
@@ -103,7 +104,7 @@ func searchFileWithRegexes(filePath string, regexList []string) (int, error) {
 			matches := findRegexMatches(regex, line)
 			if len(matches) > 0 {
 				findings++
-				printMatches(filePath, lineNum, line, matches)
+				printMatches(filePath, lineNum, line)
 
 			}
 		}
@@ -136,7 +137,7 @@ func findRegexMatches(regex *regexp.Regexp, line string) [][]int {
 	return regex.FindAllStringIndex(line, -1)
 }
 
-func printMatches(filePath string, lineNum int, line string, matches [][]int) {
+func printMatches(filePath string, lineNum int, line string) {
 	if !*NO_COLOR {
 		fmt.Printf("File: %s, Line %d, Match: ", filePath, lineNum+1)
 		color.Red("%.100s", line)
