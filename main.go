@@ -123,7 +123,8 @@ func isWrongExtension(filePath string) bool {
 		".xlsx", ".ppt", ".pptx", ".mp3", ".mp4",
 		".avi", ".mov", ".wav", ".flac",
 		".webm", ".webp", "lock.json",
-		".lock",
+		".lock", ".pack", ".tar", ".tar.gz",
+		".tar.xz", ".git",
 	}
 
 	// if filepath.contains suffix, return true
