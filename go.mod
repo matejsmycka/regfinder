@@ -1,6 +1,6 @@
 module regfinder
 
-go 1.21.3
+go 1.23
 
 require github.com/fatih/color v1.15.0
 
