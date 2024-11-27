@@ -116,14 +116,14 @@ func searchFileWithRegexes(filePath string, regexList []string) (int, error) {
 
 func isWrongExtension(filePath string) bool {
 	var suffixes = [...]string{
-		"exe", "dll", "png", "md", "ico",
-		"jpeg", "zip", "gz", "7z", "ttf",
-		"woff", "woff2", "eot", "svg", "gif",
-		"jpg", "pdf", "doc", "docx", "xls",
-		"xlsx", "ppt", "pptx", "mp3", "mp4",
-		"avi", "mov", "wav", "flac", "ogg",
-		"webm", "webp", "bmp", "tif", "tiff", "lock.json",
-		"lock",
+		".exe", ".dll", ".png", ".md", ".ico",
+		".jpeg", ".zip", ".gz", ".7z", ".ttf",
+		".woff", ".woff2", ".eot", ".svg", ".gif",
+		".jpg", ".pdf", ".doc", ".docx", ".xls",
+		".xlsx", ".ppt", ".pptx", ".mp3", ".mp4",
+		".avi", ".mov", ".wav", ".flac",
+		".webm", ".webp", "lock.json",
+		".lock",
 	}
 
 	// if filepath.contains suffix, return true
