@@ -143,10 +143,10 @@ func findRegexMatches(regex *regexp.Regexp, line string) [][]int {
 
 func printMatches(filePath string, lineNum int, line string) {
 	if !*NO_COLOR {
-		fmt.Printf("File: %s, Line %d, Match: ", filePath, lineNum+1)
+		fmt.Printf("%s:%d Match: ", filePath, lineNum+1)
 		color.Red("%.100s", line)
 	} else {
-		fmt.Printf("File: %s, Line %d, Match: %.100s\n", filePath, lineNum+1, line)
+		fmt.Printf("%s:%d Match: %.100s\n", filePath, lineNum+1, line)
 	}
 }
 
